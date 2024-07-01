@@ -1,0 +1,29 @@
+.valueInput{
+
+   margin: 30px;
+   margin-left: 80px;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+
+    input{
+        margin: 100px;
+        width: 400px;
+        height: 170px;
+        padding: 10px;
+        font-size: 0.9cm;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        transition: border-color 0.3s;
+    }
+
+    &:focus{
+        border-color: #007bff;
+        outline: none;
+    }
+}
+
+
+    
