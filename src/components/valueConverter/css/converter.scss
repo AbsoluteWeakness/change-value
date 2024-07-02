@@ -1,0 +1,52 @@
+.currency-converter {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.arrow{
+    background-color: #f9f9f9;
+        color: #000;
+        border: none;
+       
+        font-size: 80px;
+        cursor: pointer;
+        border-radius: 5px;
+
+        &:hover {
+                color: #909090;
+
+            }
+}
+
+.input-group input[type="number"] {
+    width: 100px;
+    height: 40px;
+    padding: 10px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.input-group select {
+    width: 100px;
+    height: 40px;
+    padding: 10px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+

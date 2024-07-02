@@ -1,13 +1,16 @@
 import React, { useState } from "react"
 import axios from "axios";
+
 import ValueInput from "../valueInput/ValueInput";
+
+import './css/converter.scss'
 
 const Converter: React.FC = () => {
 
     const [value, setValue] = useState('');
-    const [fromCurrency, setFromCurrency] = useState<string>('RUB')
-    const [toCurrency, setToCurrency] = useState<string>('USD')
-    const [convertedValue, setConvertedValue] = useState<string>('')
+    const [fromCurrency, setFromCurrency] = useState<string>('RUB');
+    const [toCurrency, setToCurrency] = useState<string>('USD');
+    const [convertedValue, setConvertedValue] = useState<string>('');
 
     const valueChange = async (value: number | null) => {
         setValue(value?.toString() ?? '');
@@ -35,6 +38,8 @@ const Converter: React.FC = () => {
         }
     };
 
+   
+
     const convertCurrency = async (fromCurrency: string, toCurrency: string, amount: number) => {
         const response = await axios.get(`https://api.exchangerate-api.com/v4/latest/${fromCurrency}`);
         const rates = response.data.rates;
@@ -43,24 +48,32 @@ const Converter: React.FC = () => {
         return convertedAmount;
     };
 
+
+
     return (
-        <div>
-           
-            <ValueInput
-                value={value}
-                currency={fromCurrency}
-                onValueChange={valueChange}
-                onCurrencyChange={fromCurrencyChange}
+        <div className="currency-converter">
+            <div className="input-group">
 
-            />  
+                <ValueInput
+                    value={value}
+                    currency={fromCurrency}
+                    onValueChange={valueChange}
+                    onCurrencyChange={fromCurrencyChange}
 
-            <ValueInput
-                value={convertedValue}
-                currency={toCurrency}
-                onValueChange={() => {}}
-                onCurrencyChange={toCurrencyChange}
                 />
-            
+
+                <button className="arrow">⇄</button>
+
+                <ValueInput
+
+                    value={convertedValue}
+                    currency={toCurrency}
+                    onValueChange={() => { }}
+                    onCurrencyChange={toCurrencyChange}
+                />
+
+            </div>
+           
         </div>
     )
 }
