@@ -1,31 +1,40 @@
 import React, { useState } from "react"
 import { InputNumber, Select } from "antd"
-import'./css/ValueInput.scss'
+import * as images from '../../assets/images/loadImages';
 
-type Cyrrency = {
+import './css/ValueInput.scss'
+
+type Currency = {
     value: string;
     label: string;
+    img: string;
 }
 
-const fiatCurrencies: Cyrrency[] = [
-    { value: "RUB", label: 'Рубли' },
-    { value: "USD", label: 'Доллары' },
-    { value: "EUR", label: 'Евро' },
-    { value: "CNY", label: 'Юань' },
-    { value: "GBP", label: 'Британский фунт' },
-    { value: "CAD", label: 'Канадский доллар' }
+const fiatCurrencies: Currency[] = [
+    { value: "RUB", label: 'Рубли', img: images.rubImg},
+    { value: "USD", label: 'Доллары', img:images.usdImg },
+    { value: "EUR", label: 'Евро', img:images.euroImg},
+    { value: "CNY", label: 'Юань', img:images.yuanImg},
+    { value: "TRY", label: 'Лира', img: images.liraImg },
+    { value: "MNT", label: 'Тугрик', img: images.tugrikImg },
+    { value: "AED", label: 'Дирхам', img: images.dirhamImg },
+    { value: "INR", label: 'Рупий', img: images.rupieesImg },
+    { value: "KZT", label: 'Тенге', img: images.tengeImg },
+    { value: "KRW", label: 'Вона', img: images.wonImg }
 ];
 
-const cryptoCurrencies: Cyrrency[] = [
-    { value: "BTC", label: 'Bitcoin' },
-    { value: "ETH", label: "Ethereum" },
-    { value: "XRP", label: "Ripple" },
-    { value: "SOL", label: "Solana" },
-    { value: "BNB", label: "Binance Coin" },
-    { value: "USDT", label: 'Tether' },
-    { value: "TON", label: 'Toncoin' },
-    { value: "TRX", label: 'TRON' }
-]
+const cryptoCurrencies: Currency[] = [
+    { value: "BTC", label: 'Bitcoin', img: images.btcImg },
+    { value: "ETH", label: "Ethereum", img: images.ethImg},
+    { value: "XRP", label: "Ripple", img: images.xrpImg },
+    { value: "SOL", label: "Solana", img: images.solImg},
+    { value: "BNB", label: "Binance Coin", img: images.bnbImg },
+    { value: "USDT", label: 'Tether', img: images.usdtImg},
+    { value: "TON", label: 'Toncoin', img: images.tonImg },
+    { value: "TRX", label: 'TRON', img: images.trxImg }
+];
+
+const allCurrencies = [...fiatCurrencies, ...cryptoCurrencies]
 
 type valueProps = {
     value: string,
@@ -34,28 +43,38 @@ type valueProps = {
     onCurrencyChange:(currency:string) => void,
 }
 
-const ValueInput: React.FC<valueProps> = ({ value, currency, onValueChange, onCurrencyChange }) => {
+const ValueInput: React.FC<valueProps> = ({value, currency, onValueChange, onCurrencyChange }) => {
     
-    const [selectedCurrency, setSelectedCurrency] = useState(currency);
+    const [selectedCurrency, setSelectedCurrency] = useState(currency) ;
 
-    const currencyChange = (currency:string) => {
-        setSelectedCurrency(currency)
-        onCurrencyChange(currency)
+    const currencyChange = (newValue: string) => {
+        setSelectedCurrency(newValue)
+        onCurrencyChange(newValue)
     }
 
     return (
+       
         <div className="valueInput">
-            <InputNumber value={Number(value)} onChange={(newValue) => {
+            
+            <InputNumber  value={Number(value)} onChange={(newValue) => {
                 if (newValue !== undefined) {
                     onValueChange(newValue) 
                 }
             }} />
+          
 
             <Select value={selectedCurrency} onChange={currencyChange}>
-                {fiatCurrencies.map(currency => (
-                    <Select.Option key={currency.value} value={currency.value}>{currency.label}</Select.Option>
+                {allCurrencies.map(currency => (
+                    <Select.Option
+                            key={currency.value} value={currency.value}> 
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            {currency.label}
+                         <img src={currency.img} alt={currency.label} style={{ width: 25, height: 25, marginLeft: 10 }} /> 
+
+                        </div>
+                       
+                    </Select.Option>
                 ))}
-              
             </Select>
             
         </div>
